@@ -1,0 +1,16 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+Icon?
+._*
+
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+
+*~
+
+.vscode/
+.cursor/
