@@ -14,3 +14,6 @@ Desktop.ini
 
 .vscode/
 .cursor/
+
+# Chinese reference docs (local only)
+**/README_CN.md

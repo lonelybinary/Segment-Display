@@ -4,7 +4,7 @@
 
 Ten Segment LED Bar Display is a 10‑segment LED bar indicator. Each segment can be controlled independently, making it suitable for showing progress/level/status (e.g. battery, volume, signal strength, loading progress).
 
-This product may include multiple Ten Segment LED Bar Displays. This folder provides:
+Each kit includes **multiple** Ten Segment LED Bar Display units (multiple pieces per box). This folder provides:
 
 - **Photos / images**: see `images/`
 - **Arduino UNO R3 demo sketch**: see “Arduino Uno R3 Example” below and `codes/`
@@ -47,27 +47,29 @@ Demonstrate basic control of the Ten Segment LED Bar Display with Arduino Uno R3
 File: `codes/Uno_10SEG.ino`
 
 ```cpp
-// UNO R3: D4~D13, active-low (LOW=on, HIGH=off)
+// Ten Segment LED Bar Display — Arduino Uno R3 demo sketch
+// Ten GPIOs drive ten segments (D4..D13). Active-low: LOW = segment on, HIGH = off.
+
 const int firstPin = 4;
 const int lastPin = 13;
-const int stepDelayMs = 120;   // step delay
-const int allOffDelayMs = 300; // all-off delay
+const int stepDelayMs = 120;   // delay after each new segment turns on (fill speed)
+const int allOffDelayMs = 300; // pause with all segments off before repeating
 
 void setup() {
   for (int pin = firstPin; pin <= lastPin; pin++) {
     pinMode(pin, OUTPUT);
-    digitalWrite(pin, HIGH);
+    digitalWrite(pin, HIGH); // active-low: start with all segments off
   }
 }
 
 void loop() {
-  // Fill in one direction
+  // Light segments one by one from D4 toward D13
   for (int pin = firstPin; pin <= lastPin; pin++) {
     digitalWrite(pin, LOW);
     delay(stepDelayMs);
   }
 
-  // All off, then repeat
+  // Turn all segments off, then repeat
   for (int pin = firstPin; pin <= lastPin; pin++) {
     digitalWrite(pin, HIGH);
   }
@@ -88,8 +90,8 @@ void loop() {
 ```cpp
 const int firstPin = 4;
 const int lastPin = 13;
-const int stepDelayMs = 120;
-const int allOffDelayMs = 300;
+const int stepDelayMs = 120;   // delay after each new segment turns on (fill speed)
+const int allOffDelayMs = 300; // pause with all segments off before repeating
 ```
 
 - `firstPin`/`lastPin`: use **D4~D13** (10 digital pins) to drive the 10 segments.
@@ -102,7 +104,7 @@ const int allOffDelayMs = 300;
 void setup() {
   for (int pin = firstPin; pin <= lastPin; pin++) {
     pinMode(pin, OUTPUT);
-    digitalWrite(pin, HIGH);
+    digitalWrite(pin, HIGH); // active-low: start with all segments off
   }
 }
 ```
@@ -114,11 +116,13 @@ void setup() {
 
 ```cpp
 void loop() {
+  // Light segments one by one from D4 toward D13
   for (int pin = firstPin; pin <= lastPin; pin++) {
     digitalWrite(pin, LOW);
     delay(stepDelayMs);
   }
 
+  // Turn all segments off, then repeat
   for (int pin = firstPin; pin <= lastPin; pin++) {
     digitalWrite(pin, HIGH);
   }
