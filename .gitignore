@@ -17,3 +17,5 @@ Desktop.ini
 
 # Chinese reference docs (local only)
 **/README_CN.md
+**/*_CN.*
+**/*_cn.*
