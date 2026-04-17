@@ -1,8 +1,8 @@
-# 0.56 Seven Segment LED Display
+# 0.56 Seven Seg Display
 
 ## Function
 
-This is a **0.56" single‑digit 7‑segment LED display kit**, suitable for showing a single numeric character (e.g. counters, status codes, simple values).
+This is a **0.56" single‑digit 7‑segment display kit**, suitable for showing a single numeric character (e.g. counters, status codes, simple values).
 
 This kit includes:
 

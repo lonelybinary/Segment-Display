@@ -1,4 +1,4 @@
-// Ten Segment LED Bar Display — Arduino Uno R3 demo sketch
+// Ten Seg LED Bar Display — Arduino Uno R3 demo sketch
 // Ten GPIOs drive ten segments (D4..D13). Active-low: LOW = segment on, HIGH = off.
 
 const int firstPin = 4;

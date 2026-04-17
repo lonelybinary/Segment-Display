@@ -1,10 +1,10 @@
-# Ten Segment LED Bar Display
+# Ten Seg LED Bar Display
 
 ## Function
 
-Ten Segment LED Bar Display is a 10‑segment LED bar indicator. Each segment can be controlled independently, making it suitable for showing progress/level/status (e.g. battery, volume, signal strength, loading progress).
+Ten Seg LED Bar Display is a 10‑segment LED bar indicator. Each segment can be controlled independently, making it suitable for showing progress/level/status (e.g. battery, volume, signal strength, loading progress).
 
-Each kit includes **multiple** Ten Segment LED Bar Display units (multiple pieces per box). This folder provides:
+Each kit includes **multiple** Ten Seg LED Bar Display units (multiple pieces per box). This folder provides:
 
 - **Photos / images**: see `images/`
 - **Arduino UNO R3 demo sketch**: see “Arduino Uno R3 Example” below and `codes/`
@@ -26,7 +26,7 @@ Each kit includes **multiple** Ten Segment LED Bar Display units (multiple piece
 
 ### Goal
 
-Demonstrate basic control of the Ten Segment LED Bar Display with Arduino Uno R3:
+Demonstrate basic control of the Ten Seg LED Bar Display with Arduino Uno R3:
 
 - Use **D4~D13** to control 10 segments
 - **Active‑low** (LOW = on, HIGH = off)
@@ -38,7 +38,7 @@ Demonstrate basic control of the Ten Segment LED Bar Display with Arduino Uno R3
 
 ![Wiring (Real)](images/wiring-real-uno-r3.jpg)
 
-> Wiring rule: the **text‑printed side** of the Ten Segment LED Bar Display connects to the **current‑limit resistor array**, and the other side connects to the **MCU**.
+> Wiring rule: the **text‑printed side** of the Ten Seg LED Bar Display connects to the **current‑limit resistor array**, and the other side connects to the **MCU**.
 >
 > Note: this example assumes Arduino **D4~D13** map to the 10 segment control pins.
 
@@ -47,7 +47,7 @@ Demonstrate basic control of the Ten Segment LED Bar Display with Arduino Uno R3
 File: `codes/Uno_10SEG.ino`
 
 ```cpp
-// Ten Segment LED Bar Display — Arduino Uno R3 demo sketch
+// Ten Seg LED Bar Display — Arduino Uno R3 demo sketch
 // Ten GPIOs drive ten segments (D4..D13). Active-low: LOW = segment on, HIGH = off.
 
 const int firstPin = 4;
@@ -81,7 +81,7 @@ void loop() {
 
 ![Effect](images/effect-uno-r3.gif)
 
-> You can use the same wiring and sketch to test other colors of Ten Segment LED Bar Display in the kit.
+> You can use the same wiring and sketch to test other colors of Ten Seg LED Bar Display in the kit.
 
 ### Code Walkthrough
 
