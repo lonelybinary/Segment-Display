@@ -1,4 +1,4 @@
-# 0.28 SEG Display
+# 0.28 inch Seven Seg Display
 
 ## Function
 

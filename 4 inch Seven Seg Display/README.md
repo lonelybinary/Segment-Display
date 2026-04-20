@@ -1,8 +1,8 @@
-# 4.7 SEG Display
+# 4 inch Seven Seg Display
 
 ## Function
 
-This is a **4.7" seven-segment LED display kit** driven by **74HC595** shift registers. One module shows **0–9**; chain **DATAOUT (QH)** → next **DATAIN (SER)** for more digits (e.g. **00–99** with two modules).
+This is a **4" seven-segment LED display kit** driven by **74HC595** shift registers. One module shows **0–9**; chain **DATAOUT (QH)** → next **DATAIN (SER)** for more digits (e.g. **00–99** with two modules).
 
 This folder provides:
 

@@ -1,4 +1,4 @@
-# 0.56 Seven Seg Display
+# 0.56 inch Seven Seg Display
 
 ## Function
 
