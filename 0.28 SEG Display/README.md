@@ -39,6 +39,13 @@ This folder provides:
 | :--: | :--: |
 | **Front (component side)** | **Back (solder side)** |
 
+## LED Color ↔ Silkscreen (P/N) Table
+
+| LED color | Silkscreen / P/N |
+| :-- | :-- |
+| Blue | `2481AB-2` |
+| Red | `2841AS-CD` |
+
 ## Arduino Uno R3 Example
 
 ### Goal
