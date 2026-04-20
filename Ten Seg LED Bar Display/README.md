@@ -16,6 +16,16 @@ Each kit includes **multiple** Ten Seg LED Bar Display units (multiple pieces pe
 | :--: | :--: |
 | **Yellow (HD)** | **Resistor array module** |
 
+## LED Color ↔ Silkscreen (P/N) Table
+
+| LED color | Silkscreen / P/N |
+| :-- | :-- |
+| Green | `2501GG` |
+| Yellow | `2510Y` |
+| Red | `2510BS` |
+| White | `2510BW` |
+| Blue | `2510BB` |
+
 ## Quick Start (UNO R3)
 
 1. Wire it as shown in “Arduino Uno R3 Example”
