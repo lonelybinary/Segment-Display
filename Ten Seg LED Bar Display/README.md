@@ -6,6 +6,14 @@ Ten Seg LED Bar Display is a 10‑segment LED bar indicator. Each segment can be
 
 Each kit includes **multiple** Ten Seg LED Bar Display units (multiple pieces per box). This folder provides:
 
+## What You Will Learn
+
+- How to turn individual LEDs on and off using Arduino digital pins
+- What **active-low logic** means (why writing `LOW` turns an LED **on**)
+- How a **`for` loop** controls many pins with just a few lines of code
+- What **`setup()`** and **`loop()`** functions do in an Arduino sketch
+- How to adjust animation **speed** by changing a single number in the code
+
 - **Photos / images**: see `images/`
 - **Arduino UNO R3 demo sketch**: see “Arduino Uno R3 Example” below and `codes/`
 - **3D printed enclosure**: see `3D-Printed Enclosure/`
@@ -143,3 +151,63 @@ void loop() {
 - First loop: write `LOW` from D4 to D13 to **fill** the bar.
 - Second loop: write `HIGH` to turn **all segments off**.
 - `delay(...)` controls the animation timing.
+
+## Key Concepts
+
+### What Is an LED?
+
+An **LED** (Light-Emitting Diode) is a tiny light that turns on when electricity flows through it in the correct direction. Each of the 10 segments in the bar is one LED. The Arduino controls each LED by setting a pin to `HIGH` (5 V) or `LOW` (0 V).
+
+### What Is Active-Low Logic?
+
+In this circuit the LEDs are wired so that the **low** voltage (0 V) turns them **on**, and the **high** voltage (5 V) turns them **off**. This is called **active-low**:
+
+| Arduino pin state | Voltage | LED result |
+| :-- | :-- | :-- |
+| `LOW` | 0 V | **ON** (lit) |
+| `HIGH` | 5 V | **OFF** (dark) |
+
+This feels backwards at first, but it is a very common wiring pattern in electronics. The key is to remember: **LOW = on, HIGH = off** for this display.
+
+### What Are `setup()` and `loop()`?
+
+Every Arduino sketch has two required functions:
+
+- **`setup()`** — runs **exactly once** when the Arduino powers up or resets. Use it to configure your pins and set their starting values.
+- **`loop()`** — runs **over and over, forever**, until the power is cut. This is where your animation or main program lives.
+
+### What Is a `for` Loop?
+
+A `for` loop repeats a block of code a fixed number of times. Example:
+
+```cpp
+for (int pin = 4; pin <= 13; pin++) {
+    digitalWrite(pin, LOW);
+    delay(120);
+}
+```
+
+This runs the two lines inside the `{ }` for `pin = 4`, then `pin = 5`, …, up to `pin = 13` — that is 10 steps, written in just 4 lines. Without a `for` loop you would need 20 separate lines to do the same thing.
+
+### Why Do We Need Resistors?
+
+LEDs require a **current-limiting resistor** to prevent too much electricity from flowing through them (which would burn them out). This kit provides a **resistor array module** that handles this automatically — you do not need to add separate resistors.
+
+## Try It Yourself
+
+Once the basic demo is working, try these changes:
+
+1. **Change the speed** — In the code, change `stepDelayMs` from `120` to `50`. Upload again. What happens? Try `500` — what changes?
+2. **Fill from the other end** — Change the `for` loop to count *down* from `lastPin` to `firstPin` (`pin--` instead of `pin++`). The bar will fill from the opposite direction.
+3. **Light only the middle** — Use `digitalWrite` to turn on only pins D8 and D9, keeping all others off. Can you make just the center two segments glow?
+4. **Make a back-and-forth sweep** — After filling up, add a second `for` loop that turns segments off one by one from the last pin back to the first.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to try |
+| :-- | :-- | :-- |
+| No LEDs light up at all | Missing power or wrong wiring | Check that GND is connected and that D4–D13 match the diagram |
+| All LEDs stay on and never turn off | `HIGH`/`LOW` are swapped in the code | Make sure `setup()` starts all pins `HIGH` (off), and `loop()` sets them `LOW` (on) |
+| Only some segments light up | A loose or missing jumper wire | Wiggle each wire; try adding `digitalWrite(pin, LOW)` for one pin at a time in `setup()` to test each segment |
+| Wrong segments light up in the wrong order | Wires are on the wrong pins | Check that D4 goes to segment 1, D5 to segment 2, and so on |
+| The sketch does not upload | Wrong board or port selected | In Arduino IDE go to **Tools → Board** and choose **Arduino Uno**; then **Tools → Port** and pick the correct COM port |
