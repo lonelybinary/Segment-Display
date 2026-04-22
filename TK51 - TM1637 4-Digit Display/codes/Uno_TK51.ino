@@ -1,52 +1,42 @@
 /*
- * TK51-4-DIGIT DISPLAY - Arduino Uno R3 Example
- * 
- * Description:
- * This sketch demonstrates how to use the TK51-4-DIGIT DISPLAY module
- * - Cycle through 0-9 (all 4 digits display same number: 0000, 1111, 2222...9999)
- * 
- * Wiring:
- * Change the pin definition in code to match your wiring.
- * 
- * Usage:
- * 1. Upload this sketch to Arduino Uno R3
- * 2. Open Serial Monitor (9600 baud) to see output
- * 3. Observe the 4-digit display effect
- * 
- * Note: Requires TM1637 library
- * Installation: Tools → Manage Libraries → Search "TM1637" → Install
+ * TK51 – TM1637 4-Digit Display — Arduino Uno R3 example
+ *
+ * Wiring (change pin numbers in #define below if you rewire):
+ *   VCC → 5V     GND → GND
+ *   CLK → D2     DIO → D3
+ *
+ * Library required: "TM1637Display"
+ *   Install: Sketch → Include Library → Manage Libraries… → search "TM1637Display" → Install
  */
 
-#include <TM1637Display.h>
+#include <TM1637Display.h>  // #include loads a library — pre-written code you can reuse
 
-// Pin number: change these to match your wiring
-#define CLK_PIN 2   // Arduino digital pin connected to CLOCK (e.g. D2)
-#define DIO_PIN 3   // Arduino digital pin connected to DATA (e.g. D3)
+#define CLK_PIN 2   // CLK wire → Arduino pin D2 (change if you use a different pin)
+#define DIO_PIN 3   // DIO wire → Arduino pin D3
 
-// Create TM1637 display object
+// Create a display object. All display commands go through this object.
 TM1637Display display(CLK_PIN, DIO_PIN);
 
 void setup() {
-  // Set display brightness (0-7, 7 is brightest)
-  display.setBrightness(7);
-  
-  // Start serial for debugging (9600 baud)
+  // setup() runs once when the Arduino powers on.
+  display.setBrightness(7);  // brightness: 0 (dimmest) to 7 (brightest)
+
+  // Serial is optional — remove these two lines if you don't need debug output.
   Serial.begin(9600);
-  
-  Serial.println("4-digit display module program started");
-  Serial.println("Cycling through 0-9 (all 4 digits display same number)");
+  Serial.println("TK51 demo started");
 }
 
 void loop() {
-  // Cycle through 0-9 (all 4 digits display same number)
+  // loop() runs over and over forever.
+
+  // Cycle i from 0 to 9.
+  // Multiplying by 1111 makes all four digits show the same value:
+  //   i=0 → display shows 0000
+  //   i=1 → display shows 1111  ...  i=9 → display shows 9999
   for (int i = 0; i < 10; i++) {
-    // Display number: 0 displays as 0000, 1 displays as 1111, 2 displays as 2222...9 displays as 9999
-    // showNumberDecEx second parameter is dot display, third parameter is leading zero
-    display.showNumberDecEx(i * 1111, 0, false);
-    
-    Serial.print("Display number: ");
-    Serial.println(i);
-    
-    delay(1000);  // Switch number every second
+    display.showNumberDec(i * 1111, false);  // false = do not pad with leading zeros
+    Serial.print("Showing: ");
+    Serial.println(i * 1111);
+    delay(1000);  // hold each number for 1 second before moving to the next
   }
 }

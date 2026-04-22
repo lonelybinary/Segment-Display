@@ -28,6 +28,31 @@ If you are new to Arduino, work through the projects in this order — from simp
 | 4 | **0.28 inch Eight-Digit Seven Seg Display** | Introduces a driver IC library (MAX7219) and multi-digit control. |
 | 5 | **4 inch Seven Seg Display** | Larger display, external power, and chaining (cascading) multiple modules. |
 
+## Glossary
+
+New to electronics? Here are the key words used throughout this repository:
+
+| Term | Plain-English meaning |
+| :-- | :-- |
+| **LED** | Light-Emitting Diode — a tiny light that turns on when electricity flows through it |
+| **Segment** | One individual LED bar inside a 7-segment or bar display |
+| **Digital pin** | A pin on the Arduino that outputs either 5 V (HIGH) or 0 V (LOW) — like a light switch |
+| **Active-low** | A wiring style where `LOW` (0 V) turns the LED **on** and `HIGH` (5 V) turns it **off** — the opposite of what you might expect |
+| **GND** | Ground — the 0 V reference for all circuits; every component must share a common GND |
+| **Shift register** | A chip (e.g. 74HC595) that converts **3 wires** of serial data into **8 parallel outputs**, so you can control 8 LEDs with just 3 Arduino pins |
+| **Cascade / chain** | Connecting multiple modules in a line so one set of 3 wires controls all of them |
+| **Common cathode** | A 7-segment display where all segment LEDs share a single GND pin; a segment turns on when its pin goes HIGH |
+| **Common anode** | A 7-segment display where all segment LEDs share a single 5 V pin; a segment turns on when its pin goes LOW |
+| **Library** | A collection of pre-written code you can reuse; install once and call its functions instead of writing everything yourself |
+| **`#define`** | A way to give a name to a number (e.g. `#define CLK_PIN 2` means "wherever I write `CLK_PIN`, use the number 2") |
+| **`#include`** | Loads a library into your sketch so you can use its functions |
+| **Binary** | A number written using only 0s and 1s; in code, written as `0b00111111`. Each bit can turn one LED segment on or off |
+| **Hexadecimal (hex)** | A compact way to write binary numbers using digits 0–9 and letters A–F; in code, written as `0x3F` |
+| **Multiplexing** | Switching between display positions very rapidly (faster than your eye can see) so a single driver chip can control many digits |
+| **`%` (modulo)** | Gives the remainder after division; `37 % 10 = 7` extracts the ones digit from 37 |
+| **`setup()`** | An Arduino function that runs **once** when the board powers on — use it to configure pins and set starting states |
+| **`loop()`** | An Arduino function that runs **over and over forever** — use it for animations and ongoing behavior |
+
 ## Products
 
 ### Ten Seg LED Bar Display Kit

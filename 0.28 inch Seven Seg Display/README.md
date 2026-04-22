@@ -81,6 +81,8 @@ Example Arduino connections (change in code if you rewire):
 
 ### Code
 
+> **New to libraries or driver ICs?** Read the [Key Concepts](#key-concepts) section below first — it explains what `#include` does, why `shutdown()` must be called, and how the MAX7219 controls 8 digits from 3 wires.
+
 File: `codes/Uno_0288SEG.ino`
 
 Uses the **LedControl** library (**MAX7219**, **DIN / CLK / CS**).
@@ -314,6 +316,48 @@ The line:
 ```
 
 is a **preprocessor directive** — it is processed before the code compiles. Wherever `#if VARIANT_CLOCK` appears, the compiler includes the clock-specific code (or the decimal-point-specific code). This is an efficient way to support two hardware variants without shipping two separate sketches.
+
+## More Examples
+
+### Display a Fixed Number
+
+To show **1234** on the first four digits (positions 0–3) and hold it permanently:
+
+```cpp
+void setup() {
+  lc.shutdown(0, false);
+  lc.setIntensity(0, 8);
+  lc.clearDisplay(0);
+
+  // setDigit(device, position, digit, dot)
+  // position 0 = leftmost, 7 = rightmost
+  lc.setDigit(0, 0, 1, false);  // position 0 → "1"
+  lc.setDigit(0, 1, 2, false);  // position 1 → "2"
+  lc.setDigit(0, 2, 3, false);  // position 2 → "3"
+  lc.setDigit(0, 3, 4, false);  // position 3 → "4"
+}
+
+void loop() { }  // display stays as-is
+```
+
+### Simple Counter in `loop()`
+
+Move the counting into `loop()` to make it repeat continuously:
+
+```cpp
+void setup() {
+  lc.shutdown(0, false);
+  lc.setIntensity(0, 8);
+  lc.clearDisplay(0);
+}
+
+void loop() {
+  for (int i = 0; i <= 9; i++) {
+    lc.setDigit(0, 0, i, false);  // show i on the leftmost digit
+    delay(400);
+  }
+}
+```
 
 ## Try It Yourself
 

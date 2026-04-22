@@ -59,25 +59,29 @@ Example Arduino connections (change in code if you rewire):
 
 ### Code
 
+> **New to Arduino?** Read the [Key Concepts](#key-concepts) section below before looking at the code — it explains what `#include`, `setup()`, and `loop()` mean, and how `showNumberDec()` works.
+
 File: `codes/Uno_TK51.ino`
 
 ```cpp
-#include <TM1637Display.h>
+#include <TM1637Display.h>  // #include loads a library — pre-written code you can reuse
 
-// Change these to match your wiring
-#define CLK_PIN 2
-#define DIO_PIN 3
+#define CLK_PIN 2   // CLK wire → Arduino pin D2 (change if you use a different pin)
+#define DIO_PIN 3   // DIO wire → Arduino pin D3
 
-TM1637Display display(CLK_PIN, DIO_PIN);
+TM1637Display display(CLK_PIN, DIO_PIN);  // create a display object
 
 void setup() {
-  display.setBrightness(7);
+  // setup() runs once when the Arduino powers on.
+  display.setBrightness(7);  // 0 (dimmest) to 7 (brightest)
 }
 
 void loop() {
+  // loop() runs over and over forever.
+  // i * 1111 makes all 4 digits show the same value: 0000, 1111, 2222 … 9999
   for (int i = 0; i < 10; i++) {
-    display.showNumberDec(i * 1111, false);
-    delay(1000);
+    display.showNumberDec(i * 1111, false);  // false = no leading zeros
+    delay(1000);  // hold for 1 second
   }
 }
 ```
@@ -181,6 +185,33 @@ display.setBrightness(3);  // medium brightness
 3. In the search box type **TM1637Display**.
 4. Click the result and press **Install**.
 5. The library is now available for any sketch.
+
+## More Examples
+
+### Display Any 4-Digit Number
+
+```cpp
+void setup() {
+  display.setBrightness(7);
+  display.showNumberDec(1234, false);  // shows "1234"
+}
+
+void loop() { }  // nothing — number stays on screen
+```
+
+Change `1234` to any number from 0 to 9999. Use `true` instead of `false` to show leading zeros (e.g. `42` becomes `0042`).
+
+### Simple Countdown
+
+```cpp
+void loop() {
+  for (int i = 10; i >= 0; i--) {
+    display.showNumberDec(i, false);
+    delay(1000);
+  }
+  delay(3000);  // pause 3 seconds, then repeat
+}
+```
 
 ## Try It Yourself
 

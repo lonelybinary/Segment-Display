@@ -62,6 +62,8 @@ Demonstrate basic control of the Ten Seg LED Bar Display with Arduino Uno R3:
 
 ### Code
 
+> **New to Arduino?** Read the [Key Concepts](#key-concepts) section below before looking at the code — it explains active-low logic, `for` loops, and what `setup()` and `loop()` do.
+
 File: `codes/Uno_10SEG.ino`
 
 ```cpp
@@ -192,6 +194,46 @@ This runs the two lines inside the `{ }` for `pin = 4`, then `pin = 5`, …, up 
 ### Why Do We Need Resistors?
 
 LEDs require a **current-limiting resistor** to prevent too much electricity from flowing through them (which would burn them out). This kit provides a **resistor array module** that handles this automatically — you do not need to add separate resistors.
+
+## More Examples
+
+### Light Only Specific Segments
+
+To light just segments 1, 5, and 10 (pins D4, D8, D13) and leave the rest off:
+
+```cpp
+void setup() {
+  // Set all pins as outputs, start all off
+  for (int pin = 4; pin <= 13; pin++) {
+    pinMode(pin, OUTPUT);
+    digitalWrite(pin, HIGH);  // HIGH = off (active-low)
+  }
+
+  // Turn on only pins D4, D8, and D13
+  digitalWrite(4,  LOW);   // segment 1 ON
+  digitalWrite(8,  LOW);   // segment 5 ON
+  digitalWrite(13, LOW);   // segment 10 ON
+}
+
+void loop() { }  // nothing — display stays as-is
+```
+
+### Back-and-Forth Sweep
+
+```cpp
+void loop() {
+  // Fill left to right
+  for (int pin = 4; pin <= 13; pin++) {
+    digitalWrite(pin, LOW);
+    delay(80);
+  }
+  // Unfill right to left
+  for (int pin = 13; pin >= 4; pin--) {
+    digitalWrite(pin, HIGH);
+    delay(80);
+  }
+}
+```
 
 ## Try It Yourself
 
