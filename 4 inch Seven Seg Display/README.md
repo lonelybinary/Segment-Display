@@ -4,6 +4,14 @@
 
 This is a **4" seven-segment LED display kit** driven by **74HC595** shift registers. One module shows **0–9**; chain **DATAOUT (QH)** → next **DATAIN (SER)** for more digits (e.g. **00–99** with two modules).
 
+## What You Will Learn
+
+- How to control a large, bright 7-segment display with a **shift register**
+- Why large LED displays need an **external 12 V power supply** (the Arduino cannot supply enough power)
+- How to **cascade** (chain) multiple display modules using just 3 wires from the Arduino
+- How **hexadecimal** (`0x3F`, `0x06`, …) represents segment patterns compactly
+- How the **modulo (`%`) and division (`/`) operators** extract individual digits from a number
+
 This folder provides:
 
 - **Photos / images**: see `images/`
@@ -264,3 +272,71 @@ void loop() {
 
 - First block: blink **all** DPs **3** times (all `0x80`, then all `0`).  
 - Second block: `lim` = **10^NUM_DIGITS − 1**; for each `n`, peel digits with `% 10` / `/ 10` into `b[]`, then `outN(b)` (leading zeros included).
+
+## Key Concepts
+
+### Why 12 V External Power?
+
+The large LEDs in a 4" display need significantly more current than the small LEDs in the previous projects. The Arduino's 5 V pin can only supply about 500 mA total, which is not enough for this display's brightness. An **external 12 V power supply** connects directly to the display module's power input.
+
+> **Safety note:** Always connect the Arduino GND and the external supply GND together (a shared ground). If they are not connected, the circuit will not work correctly.
+
+### What Is Hexadecimal?
+
+Hexadecimal (hex) is a number system that uses **16 digits**: 0–9 and A–F (where A=10, B=11, …, F=15). In C/C++, hex numbers start with `0x`.
+
+The segment pattern for digit **0** is `0x3F`. In binary that is `00111111` — six bits set, matching the six segments of a zero (A, B, C, D, E, F on; G off).
+
+| Digit | Hex | Binary | Segments on |
+| :---: | :-: | :-----: | :---------- |
+| 0 | `0x3F` | `00111111` | A B C D E F |
+| 1 | `0x06` | `00000110` | B C |
+| 2 | `0x5B` | `01011011` | A B D E G |
+| 7 | `0x07` | `00000111` | A B C |
+| 8 | `0x7F` | `01111111` | A B C D E F G |
+
+### How Cascading Works
+
+When two modules are chained:
+
+1. The Arduino shifts **8 bits** into the first module (tens digit).
+2. As the second 8 bits are shifted in, the first 8 bits flow ("cascade") into the second module (ones digit).
+3. After all bytes are sent, one LATCH pulse updates both modules at the same time.
+
+This is why you pull `LAT` **low** before sending all bytes, and only pull it **high** after the last byte. Raising the latch too early would update only part of the display.
+
+### Extracting Digits with `%` and `/`
+
+To split a number like **37** into tens (3) and ones (7):
+
+```cpp
+ones = 37 % 10;   // remainder of 37 ÷ 10 = 7
+tens = 37 / 10;   // integer part of 37 ÷ 10 = 3
+```
+
+The code does this in a loop so it works for any number of digits:
+
+```cpp
+for (int i = NUM_DIGITS - 1; i >= 0; i--) {
+  b[i] = d[t % 10];  // ones place → rightmost position
+  t /= 10;           // shift number right by one decimal place
+}
+```
+
+## Try It Yourself
+
+1. **Set `NUM_DIGITS 1` and count** — Start with one module, upload, and watch it count 0–9 with the decimal point at the end.
+2. **Slow down the counting** — Change `delay(400)` to `delay(1000)`. Now each digit stays on for one full second.
+3. **Add a third module** — If you have three modules, chain DATAOUT of module 2 to DATAIN of module 3, change `#define NUM_DIGITS 3`, and watch it count 000–999.
+4. **Display a fixed number** — In `setup()`, build a `b[]` array for the number 42 and call `outN(b)`. Remove the `loop()` content so it just shows 42 forever.
+
+## Troubleshooting
+
+| Problem | Likely cause | What to try |
+| :-- | :-- | :-- |
+| Display is completely dark | No 12 V supply or GND not shared | Connect an external 12 V supply; make sure its GND is also connected to Arduino GND |
+| Only the first module works | Cascade wiring wrong | Check that DATAOUT (QH) of module 1 goes to DATAIN (SER) of module 2 — **not** back to the Arduino |
+| Digits appear in the wrong order (reversed) | Byte order in `outN` is reversed | Reverse the order you fill `b[]`, or change `i` from counting up to counting down |
+| Display flickers when counting | LAT pulsed too early | Make sure `LAT` goes `LOW` before the first `shiftOut` and `HIGH` only after the last one |
+| Sketch does not compile | `NUM_DIGITS` set to 0 | The code requires `NUM_DIGITS >= 1`; change it to at least 1 |
+| Sketch does not upload | Wrong board or port | Go to **Tools → Board → Arduino Uno** and choose the correct **Port** |

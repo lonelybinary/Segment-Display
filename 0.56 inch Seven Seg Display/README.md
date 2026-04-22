@@ -6,6 +6,14 @@ This is a **0.56" single‑digit 7‑segment display kit**, suitable for showing
 
 This kit includes:
 
+## What You Will Learn
+
+- How a **7-segment display** works (which LED lights up which part of a digit)
+- What a **shift register** does and why it lets 3 wires control 8 outputs
+- How **binary numbers** (like `0b00111111`) tell the display which segments to light
+- What **common cathode** and **common anode** mean, and why they matter
+- How to use `shiftOut()`, a built-in Arduino function for sending data serially
+
 - **7‑segment display**
 - **74HC595 driver board** (serial‑to‑parallel)
 
@@ -173,4 +181,95 @@ digitalWrite(PIN_RCLK, HIGH);
 
 - Set **`#define COMMON_ANODE 0`** for **`5161AS`** (commons → **GND**); segment bytes go to the 595 as in `kDigits[]`, blank = **0**.
 - Set **`#define COMMON_ANODE 1`** for **`5161BS`** (commons → **5V**); `segOut()` inverts each byte; blank = **0xFF**.
+
+## Key Concepts
+
+### How a 7-Segment Display Works
+
+A 7-segment display has **seven LED bars** (called segments) arranged like this:
+
+```
+ _
+|_|
+|_|
+```
+
+Each segment has a letter name:
+
+```
+ AAA
+F   B
+F   B
+ GGG
+E   C
+E   C
+ DDD   (H = decimal point)
+```
+
+To show the digit **0**, segments A, B, C, D, E, F must be on (G is off). To show **1**, only B and C are on. The 8 bits in one byte each control one segment. That is why the code uses patterns like `0b00111111` for zero.
+
+### Understanding the Segment Byte
+
+Each bit in the byte maps to one segment. Reading from the **most significant bit (left) to least significant bit (right)**:
+
+```
+Bit 7  Bit 6  Bit 5  Bit 4  Bit 3  Bit 2  Bit 1  Bit 0
+  H      G      F      E      D      C      B      A
+```
+
+For digit **0** (`0b00111111`):
+
+| Bit | Segment | Value | State |
+| :-: | :-----: | :---: | :---: |
+| 7 | H (dot) | 0 | off |
+| 6 | G | 0 | off |
+| 5 | F | 1 | **on** |
+| 4 | E | 1 | **on** |
+| 3 | D | 1 | **on** |
+| 2 | C | 1 | **on** |
+| 1 | B | 1 | **on** |
+| 0 | A | 1 | **on** |
+
+Segments A, B, C, D, E, F all on and G off draws the outline of **0**.
+
+### What Is a Shift Register (74HC595)?
+
+A shift register is a chip that converts **serial data** (bits sent one at a time) into **parallel outputs** (all 8 pins set at once). This means:
+
+- You only need **3 wires** from the Arduino (SER, SRCLK, RCLK).
+- The 74HC595 drives **8 output pins** — one for each segment.
+
+Here is how data flows:
+
+1. Pull **RCLK low** (lock the outputs while you send data).
+2. Send 8 bits one at a time on **SER**, pulsing **SRCLK** after each bit.
+3. Pull **RCLK high** — all 8 outputs update at once.
+
+`shiftOut()` does steps 2 automatically; you only need to control RCLK yourself.
+
+### Common Cathode vs. Common Anode
+
+Inside the display, all segment LEDs share one leg:
+
+- **Common cathode** (`5161AS`): the shared leg is connected to **GND**. A segment lights up when its output pin goes **HIGH** (current flows in).
+- **Common anode** (`5161BS`): the shared leg is connected to **5 V**. A segment lights up when its output pin goes **LOW** (current flows out).
+
+This is why the code inverts all the bits when `COMMON_ANODE 1` is set — the same pattern `0b00111111` becomes `0b11000000`, which has the opposite effect on the hardware.
+
+## Try It Yourself
+
+1. **Show a custom digit** — What segment byte do you need to display the letter **E**? (Segments A, F, G, E, D must be on.) Write that byte and call `shiftWrite()` with it in `setup()`.
+2. **Change the speed** — Find `stepDelayMs = 500` and change it to `100`. How fast does it cycle now?
+3. **Show only the decimal point** — The decimal point is bit 7. What byte has only bit 7 set? (Hint: `0b10000000` = `0x80`.) Send that to the display.
+4. **Count backwards** — Change the `for` loop so `i` goes from **9 down to 0** (use `i--`).
+
+## Troubleshooting
+
+| Problem | Likely cause | What to try |
+| :-- | :-- | :-- |
+| Display shows nothing | Wrong common wiring | Check if your display is `5161AS` (GND) or `5161BS` (5V) and wire the common pins correctly |
+| Display shows random segments | `COMMON_ANODE` setting is wrong | If your display is `5161BS`, set `#define COMMON_ANODE 1` in the code |
+| All segments on at once | RCLK not pulsing correctly | Check that RCLK is wired to D11 (or whichever pin you set for `PIN_RCLK`) |
+| Segments look like mirror image | SER / SRCLK wires are swapped | Swap the wires for SER and SRCLK and try again |
+| Sketch does not upload | Wrong board or port | Go to **Tools → Board → Arduino Uno** and choose the correct **Port** |
 
