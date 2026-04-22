@@ -83,6 +83,8 @@ Connect the remaining power pins to **5V** and **GND** according to the driver b
 
 ### Code
 
+> **New to shift registers?** Read the [Key Concepts](#key-concepts) section below first — it explains how the 74HC595 works, what each bit in the segment byte does, and why common-anode displays need inverted bytes.
+
 File: `codes/Uno_056SEG.ino`
 
 ```cpp
@@ -186,51 +188,37 @@ digitalWrite(PIN_RCLK, HIGH);
 
 ### How a 7-Segment Display Works
 
-A 7-segment display has **seven LED bars** (called segments) arranged like this:
+A 7-segment display has **seven LED bars** (segments) plus a decimal-point dot (H). Each segment has a letter name:
 
 ```
- _
-|_|
-|_|
+  AAA          Bit:  7  6  5  4  3  2  1  0
+ F   B         Seg:  H  G  F  E  D  C  B  A
+ F   B
+  GGG          H = decimal point (dot)
+ E   C
+ E   C
+  DDD
 ```
 
-Each segment has a letter name:
+The byte you send to the 74HC595 has **8 bits**. Each bit controls one segment:
+- Bit = **1** → segment **ON**
+- Bit = **0** → segment **OFF**
+
+**Example — digit "0"** needs A B C D E F on, G and H off:
 
 ```
- AAA
-F   B
-F   B
- GGG
-E   C
-E   C
- DDD   (H = decimal point)
+Bit:   7  6  5  4  3  2  1  0
+Seg:   H  G  F  E  D  C  B  A
+Value: 0  0  1  1  1  1  1  1  =  0b00111111  =  0x3F
 ```
 
-To show the digit **0**, segments A, B, C, D, E, F must be on (G is off). To show **1**, only B and C are on. The 8 bits in one byte each control one segment. That is why the code uses patterns like `0b00111111` for zero.
-
-### Understanding the Segment Byte
-
-Each bit in the byte maps to one segment. Reading from the **most significant bit (left) to least significant bit (right)**:
+To show **"1"** (only B and C on):
 
 ```
-Bit 7  Bit 6  Bit 5  Bit 4  Bit 3  Bit 2  Bit 1  Bit 0
-  H      G      F      E      D      C      B      A
+Bit:   7  6  5  4  3  2  1  0
+Seg:   H  G  F  E  D  C  B  A
+Value: 0  0  0  0  0  1  1  0  =  0b00000110  =  0x06
 ```
-
-For digit **0** (`0b00111111`):
-
-| Bit | Segment | Value | State |
-| :-: | :-----: | :---: | :---: |
-| 7 | H (dot) | 0 | off |
-| 6 | G | 0 | off |
-| 5 | F | 1 | **on** |
-| 4 | E | 1 | **on** |
-| 3 | D | 1 | **on** |
-| 2 | C | 1 | **on** |
-| 1 | B | 1 | **on** |
-| 0 | A | 1 | **on** |
-
-Segments A, B, C, D, E, F all on and G off draws the outline of **0**.
 
 ### What Is a Shift Register (74HC595)?
 
@@ -255,6 +243,51 @@ Inside the display, all segment LEDs share one leg:
 - **Common anode** (`5161BS`): the shared leg is connected to **5 V**. A segment lights up when its output pin goes **LOW** (current flows out).
 
 This is why the code inverts all the bits when `COMMON_ANODE 1` is set — the same pattern `0b00111111` becomes `0b11000000`, which has the opposite effect on the hardware.
+
+## More Examples
+
+### Display a Fixed Digit
+
+To show the digit **5** and hold it on screen permanently:
+
+```cpp
+void setup() {
+  pinMode(PIN_SER,   OUTPUT);
+  pinMode(PIN_SRCLK, OUTPUT);
+  pinMode(PIN_RCLK,  OUTPUT);
+
+  shiftWrite(segOut(kDigits[5]));  // show "5" and leave it there
+}
+
+void loop() { }  // nothing — display stays as-is
+```
+
+Change `kDigits[5]` to `kDigits[0]` through `kDigits[9]` for any digit.
+
+### Display the Letter "E"
+
+The letter E uses segments A, D, E, F, G. Working out the byte:
+
+```
+Bit:   7  6  5  4  3  2  1  0
+Seg:   H  G  F  E  D  C  B  A
+Value: 0  1  1  1  1  0  0  1  =  0b01111001
+```
+
+```cpp
+void setup() {
+  pinMode(PIN_SER, OUTPUT); pinMode(PIN_SRCLK, OUTPUT); pinMode(PIN_RCLK, OUTPUT);
+  shiftWrite(segOut(0b01111001));  // show "E"
+}
+
+void loop() { }
+```
+
+### Show Only the Decimal Point
+
+```cpp
+shiftWrite(segOut(0b10000000));  // bit 7 = H = decimal point only
+```
 
 ## Try It Yourself
 
