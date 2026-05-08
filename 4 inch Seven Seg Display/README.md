@@ -23,6 +23,12 @@ This folder provides:
 | :--: | :--: |
 | **Front (component side)** | **Back (solder side)** |
 
+## Assembly (Solder the Pin Headers First)
+
+Each 4" module ships with **loose pin headers**. **Solder the pin headers to the DATAIN / DATAOUT / power rows on every module before plugging anything into a breadboard or a PinPlus Shield.** This applies to single-module use and to every module in a cascade.
+
+> Friction-fit, jumper-wire, or press-and-hold contacts through the un-soldered holes are **not reliable**: a cascade will look like only the first module works, digits will appear randomly, or the display will stay dark — symptoms that are easy to mis-diagnose as cascade wiring or `NUM_DIGITS` problems. Soldering the included pin headers is the only reliable fix. See [Hardware Assembly (Soldering Required)](../README.md#hardware-assembly-soldering-required) in the main README.
+
 ## Quick Start (UNO R3)
 
 1. Open `codes/Uno_47SEG.ino` in Arduino IDE and set **`#define NUM_DIGITS`** (e.g. **1** = single digit, **2** = two modules cascaded)

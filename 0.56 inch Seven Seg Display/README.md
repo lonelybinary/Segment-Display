@@ -34,6 +34,12 @@ This folder provides:
 | :--: | :--: |
 | **7‑segment side** | **74HC595 driver board** |
 
+## Assembly (Solder the Pin Headers First)
+
+The 74HC595 driver board and the 7‑segment digit module both ship with **loose pin headers**. **Solder the pin headers to each board before plugging anything into a breadboard or a PinPlus Shield.**
+
+> Friction-fit, jumper-wire, or press-and-hold contacts through the un-soldered holes are **not reliable** on this board — you will see missing segments, scrambled digits, or a dark display, and only when you press the connector does it briefly work. The contact resistance is too high and shifts every time a wire moves. Soldering the included pin headers is the only reliable way to use this kit. See [Hardware Assembly (Soldering Required)](../README.md#hardware-assembly-soldering-required) in the main README.
+
 ## Digit type ↔ silkscreen (common cathode / anode)
 
 Kits may include either type; check the **digit module** silkscreen / bag label.

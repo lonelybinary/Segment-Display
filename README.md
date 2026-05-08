@@ -14,7 +14,16 @@ You do not need prior electronics experience. Just follow the wiring diagrams an
 - A **USB cable** (Type-A to Type-B) to connect the Arduino to your computer
 - **Arduino IDE** installed on your computer (free at [arduino.cc](https://www.arduino.cc/en/software))
 - Jumper wires
+- A **soldering iron and solder** — required to attach the pin headers on the driver / display modules (see below)
 - The display kit for whichever project you choose
+
+## Hardware Assembly (Soldering Required)
+
+The driver boards and display modules in these kits ship with the **pin headers loose in the bag**. Before you plug a module into a breadboard, a PinPlus Shield, or any other socket, you **must solder the pin header to the row of through-holes** on the module.
+
+> **Friction-fit / jumper-wire / press-and-hold connections through the un-soldered holes are not reliable.** The contact resistance is too high and changes every time a wire shifts, so the display will show wrong segments, missing digits, or nothing at all — symptoms that are very easy to mis-diagnose as a wiring error or a code bug. Soldering the pin header is the only way to get a clean, repeatable connection.
+
+A basic 25–40 W iron and a few minutes per module is all you need. Once the headers are soldered, the module plugs straight into a breadboard or the PinPlus Shield.
 
 ## Recommended Learning Order (Start Here)
 
