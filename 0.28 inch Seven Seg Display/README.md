@@ -47,6 +47,12 @@ This folder provides:
 | :--: | :--: |
 | **Front (component side)** | **Back (solder side)** |
 
+## Assembly (Solder the Pin Header First)
+
+The MAX7219 module ships with a **loose 5-pin header** (GND / VCC / DIN / CLK / CS). **Solder it to the through-holes on the board before plugging the module into a breadboard or a PinPlus Shield.**
+
+> Friction-fit, jumper-wire, or press-and-hold contacts through the un-soldered holes are **not reliable**: digits will go missing, the display will go dark, or random segments will light, and the symptoms are easy to mis-diagnose as wiring or library problems. Soldering the included pin header is the only reliable fix. See [Hardware Assembly (Soldering Required)](../README.md#hardware-assembly-soldering-required) in the main README.
+
 ## LED Color ↔ Silkscreen (P/N) Table
 
 | LED color | Silkscreen / P/N |

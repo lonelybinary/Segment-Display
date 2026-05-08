@@ -23,6 +23,12 @@ This folder provides:
 | :--: | :--: | :--: |
 | **Front** | **Back** | **Side** |
 
+## Assembly (Solder the Pin Header First)
+
+The TK51 module ships with a **loose 4-pin header** (CLK / DIO / VCC / GND). **Solder it to the through-holes on the board before plugging the module into a breadboard or a PinPlus Shield.**
+
+> Friction-fit, jumper-wire, or press-and-hold contacts through the un-soldered holes are **not reliable** — the display goes dark or shows random digits. Soldering the included pin header is the only reliable fix. See [Hardware Assembly (Soldering Required)](../README.md#hardware-assembly-soldering-required) in the main README.
+
 ## LED Color ↔ Silkscreen (P/N) Table
 
 | LED color | Silkscreen / P/N |
