@@ -37,7 +37,7 @@ Each kit includes **multiple** Ten Seg LED Bar Display units (multiple pieces pe
 ## Quick Start (UNO R3)
 
 1. Wire it as shown in “Arduino Uno R3 Example”
-2. Open `codes/Uno_10SEG.ino` in Arduino IDE
+2. Open `codes/Uno_10SEG/Uno_10SEG.ino` in Arduino IDE
 3. Select **Arduino Uno** and the correct port, then upload
 
 ## Arduino Uno R3 Example
@@ -64,7 +64,7 @@ Demonstrate basic control of the Ten Seg LED Bar Display with Arduino Uno R3:
 
 > **New to Arduino?** Read the [Key Concepts](#key-concepts) section below before looking at the code — it explains active-low logic, `for` loops, and what `setup()` and `loop()` do.
 
-File: `codes/Uno_10SEG.ino`
+File: `codes/Uno_10SEG/Uno_10SEG.ino`
 
 ```cpp
 // Ten Seg LED Bar Display — Arduino Uno R3 demo sketch

@@ -33,7 +33,7 @@
 #define CS_PIN   10      // CS
 
 // Create the display object (software SPI: we name all three pins so the
-// wiring works the same on any ESP32-S3 board).
+// same wiring and code work on both boards - the ESP32-S3 and the UNO).
 MD_Parola display = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 void setup() {

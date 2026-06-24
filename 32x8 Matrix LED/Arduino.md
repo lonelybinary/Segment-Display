@@ -8,12 +8,17 @@ Use a **32×8 MAX7219 dot-matrix** display (four cascaded 8×8 modules) to show 
 
 ## Before You Start
 
-1. Install the libraries (both boards): **Tools → Manage Libraries**, then install
-   - **MD_MAX72XX** by majicDesigns
-   - **MD_Parola** by majicDesigns
-2. **ESP32-S3 only:** also install the **ESP32 boards** (Boards Manager → search "esp32" by Espressif) and select your ESP32-S3 board.
-   **UNO only:** no extra board package needed — "Arduino UNO" is built in.
-3. Wire the display as shown below and pick the matching board in **Tools → Board**.
+Never used the Arduino IDE before? Do these once:
+
+1. **Install the Arduino IDE** on your computer — free from [arduino.cc/en/software](https://www.arduino.cc/en/software).
+2. **Install the library this example needs:**
+   - Open **Tools → Manage Libraries…**
+   - Type **MD_Parola** in the search box, find the one **by majicDesigns**, and click **Install**.
+   - If it offers to also install **MD_MAX72XX** (a library MD_Parola depends on), click **Install All**. Otherwise search **MD_MAX72XX** and install that too.
+3. **ESP32-S3 only — add the board:** open **Tools → Board → Boards Manager…**, search **esp32**, and install **"esp32 by Espressif Systems"**. (For the UNO you need nothing extra — it is built in.)
+4. **Connect your board** with the USB cable, then choose it under **Tools → Board** and select its port under **Tools → Port**.
+
+**To run an example:** open the sketch (next section), click the round **➜ Upload** button at the top-left, and wait for **"Done uploading."** at the bottom.
 
 ## Wiring
 
@@ -49,7 +54,7 @@ The pin **numbers** are the same on both boards; only the label differs (`GPIO 1
 
 ## Example 1: First Light
 
-Sketch: [`codes/01_FirstLight.ino`](codes/01_FirstLight.ino)
+Sketch: [`codes/01_FirstLight/01_FirstLight.ino`](codes/01_FirstLight/01_FirstLight.ino)
 
 ```cpp
 #include <MD_Parola.h>
@@ -93,7 +98,7 @@ void loop() {
 
 ## Example 2: Scrolling Text
 
-Sketch: [`codes/02_ScrollingText.ino`](codes/02_ScrollingText.ino)
+Sketch: [`codes/02_ScrollingText/02_ScrollingText.ino`](codes/02_ScrollingText/02_ScrollingText.ino)
 
 ```cpp
 #include <MD_Parola.h>
@@ -135,7 +140,7 @@ void loop() {
 
 ## Example 3: Scrolling Clock / Counter
 
-Sketch: [`codes/03_Clock.ino`](codes/03_Clock.ino)
+Sketch: [`codes/03_Clock/03_Clock.ino`](codes/03_Clock/03_Clock.ino)
 
 A stopwatch counting `MM:SS` since the board powered on — no extra hardware needed. It uses `millis()` (the board's internal millisecond timer). Swap in an NTP source (ESP32-S3) or an RTC module later to make it a real wall clock.
 
