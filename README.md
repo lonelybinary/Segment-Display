@@ -4,7 +4,7 @@ This repository contains display products and Arduino UNO R3 demo sketches.
 
 ## What Is This?
 
-This repository is a collection of **LED segment display** projects for Arduino. Each project shows you how to wire a display, upload code, and make it show numbers or animations. Everything uses an **Arduino UNO R3** — a small, beginner-friendly microcontroller board.
+This repository is a collection of **LED segment and matrix display** projects. Each project shows you how to wire a display, upload code, and make it show numbers or animations. Most projects use an **Arduino UNO R3** — a small, beginner-friendly microcontroller board — and some also include **ESP32-S3** or **Raspberry Pi Pico** examples.
 
 You do not need prior electronics experience. Just follow the wiring diagrams and code in each folder.
 
@@ -36,6 +36,8 @@ If you are new to Arduino, work through the projects in this order — from simp
 | 3 | **0.56 inch Seven Seg Display** | Introduces shift registers and binary segment patterns. |
 | 4 | **0.28 inch Eight-Digit Seven Seg Display** | Introduces a driver IC library (MAX7219) and multi-digit control. |
 | 5 | **4 inch Seven Seg Display** | Larger display, external power, and chaining (cascading) multiple modules. |
+| 6 | **TK52 – 8×8 Matrix LED** | Your first dot-matrix — draw patterns pixel by pixel with the MAX7219. |
+| 7 | **32×8 Matrix LED** | Four chained 8×8 modules for scrolling text and clocks (ESP32-S3 or UNO). |
 
 ## Glossary
 
@@ -66,25 +68,38 @@ New to electronics? Here are the key words used throughout this repository:
 
 ### Ten Seg LED Bar Display Kit
 
-- Docs: `Ten Seg LED Bar Display/README.md`
-- Arduino UNO R3 sketch: `Ten Seg LED Bar Display/codes/Uno_10SEG.ino`
+- Docs: `10 Seg LED Bar Display/README.md`
+- Arduino UNO R3 sketch: `10 Seg LED Bar Display/codes/Uno_10SEG.ino`
 
 ### 0.56 inch Seven Seg Display Kit
 
-- Docs: `0.56 inch Seven Seg Display/README.md`
-- Arduino UNO R3 sketch: `0.56 inch Seven Seg Display/codes/Uno_056SEG.ino`
+- Docs: `0.56-inch Seven Seg Display/README.md`
+- Arduino UNO R3 sketch: `0.56-inch Seven Seg Display/codes/Uno_056SEG.ino`
 
 ### 0.28 inch Eight-Digit Seven Seg Display
 
-- Docs: `0.28 inch Seven Seg Display/README.md`
-- Arduino UNO R3 sketch: `0.28 inch Seven Seg Display/codes/Uno_0288SEG.ino` (requires **LedControl** library; **MAX7219** **DIN / CLK / CS**)
+- Docs: `0.28-inch Seven Seg Display/README.md`
+- Arduino UNO R3 sketch: `0.28-inch Seven Seg Display/codes/Uno_0288SEG.ino` (requires **LedControl** library; **MAX7219** **DIN / CLK / CS**)
 
 ### 4 inch Seven Seg Display
 
-- Docs: `4 inch Seven Seg Display/README.md`
-- Arduino UNO R3 sketch: `4 inch Seven Seg Display/codes/Uno_47SEG.ino` (set `NUM_DIGITS` for one module or a cascade chain)
+- Docs: `4-inch Seven Seg Display/README.md`
+- Arduino UNO R3 sketch: `4-inch Seven Seg Display/codes/Uno_47SEG.ino` (set `NUM_DIGITS` for one module or a cascade chain)
 
 ### TK51 – TM1637 4-Digit Display
 
-- Docs: `TK51 - TM1637 4-Digit Display/README.md`
-- Arduino UNO R3 sketch: `TK51 - TM1637 4-Digit Display/codes/Uno_TK51.ino` (requires **TM1637Display** library)
+- Docs: `4-Digit Display (TK51)/README.md`
+- Arduino UNO R3 sketch: `4-Digit Display (TK51)/codes/Uno_TK51.ino` (requires **TM1637Display** library)
+
+### TK52 – 8×8 Matrix LED (MAX7219)
+
+- Docs: `8x8 Matrix LED (TK52)/README.md`
+- Arduino UNO R3 sketch: `8x8 Matrix LED (TK52)/codes/Arduino_TK52.ino` (requires **LedControl** library)
+- MicroPython script (Raspberry Pi Pico): `8x8 Matrix LED (TK52)/codes/MicroPython_TK52.py`
+
+### 32×8 Matrix LED (MAX7219)
+
+- Docs: `32x8 Matrix LED/README.md`
+- Arduino sketches: `32x8 Matrix LED/codes/0*.ino` — the **same sketches run on both ESP32-S3 and Arduino UNO R3** (requires **MD_Parola** + **MD_MAX72XX** libraries; four cascaded 8×8 MAX7219 modules)
+- MicroPython scripts: `32x8 Matrix LED/codes/ESP32S3_*.py` — **ESP32-S3 only** (requires **max7219.py** library)
+- Beginner examples: First Light → Scrolling Text → Clock / Counter.
