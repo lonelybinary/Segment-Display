@@ -6,9 +6,14 @@ Use a **32×8 MAX7219 dot-matrix** display (four cascaded 8×8 modules) on an **
 
 ## Before You Start
 
-1. Flash **MicroPython** for the ESP32-S3 onto your board (see [micropython.org/download](https://micropython.org/download/)).
-2. Download **`max7219.py`** from [mcauser/micropython-max7219](https://github.com/mcauser/micropython-max7219) and copy it onto the board (e.g. with [Thonny](https://thonny.org/): *File → Save as → MicroPython device*).
-3. Wire the display as shown below.
+MicroPython lets you run Python code directly on the board. Set it up once:
+
+1. **Install Thonny** — a simple, beginner-friendly Python editor — from [thonny.org](https://thonny.org/).
+2. **Put MicroPython on the board:** plug the ESP32-S3 into USB, then in Thonny open **Run → Configure interpreter → Install or update MicroPython** and follow the prompts. (Full guide: [micropython.org/download](https://micropython.org/download/).)
+3. **Copy the driver library onto the board:** download **`max7219.py`** from [mcauser/micropython-max7219](https://github.com/mcauser/micropython-max7219), open it in Thonny, then choose **File → Save as → MicroPython device** and save it with the name `max7219.py`.
+4. **Wire the display** as shown below.
+
+**To run an example:** open the `.py` file in Thonny and click the green **Run** button. Press **Ctrl-C** in the shell (the bottom panel) to stop a scrolling/looping example.
 
 ## Wiring
 

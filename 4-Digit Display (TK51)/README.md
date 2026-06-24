@@ -44,7 +44,7 @@ The TK51 module ships with a **loose 4-pin header** (CLK / DIO / VCC / GND). **S
 
 1. Install the **TM1637Display** library in Arduino IDE (Library Manager: search `TM1637Display`).
 2. Wire it as shown in “Arduino Uno R3 Example”.
-3. Open `codes/Uno_TK51.ino`, select **Arduino Uno** and the correct port, then upload.
+3. Open `codes/Uno_TK51/Uno_TK51.ino`, select **Arduino Uno** and the correct port, then upload.
 
 ## Arduino Uno R3 Example
 
@@ -67,7 +67,7 @@ Example Arduino connections (change in code if you rewire):
 
 > **New to Arduino?** Read the [Key Concepts](#key-concepts) section below before looking at the code — it explains what `#include`, `setup()`, and `loop()` mean, and how `showNumberDec()` works.
 
-File: `codes/Uno_TK51.ino`
+File: `codes/Uno_TK51/Uno_TK51.ino`
 
 ```cpp
 #include <TM1637Display.h>  // #include loads a library — pre-written code you can reuse

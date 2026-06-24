@@ -15,7 +15,7 @@ This is a **4" seven-segment LED display kit** driven by **74HC595** shift regis
 This folder provides:
 
 - **Photos / images**: see `images/`
-- **Arduino UNO R3 demo sketch**: see "Arduino Uno R3 Example" below and `codes/Uno_47SEG.ino`
+- **Arduino UNO R3 demo sketch**: see "Arduino Uno R3 Example" below and `codes/Uno_47SEG/Uno_47SEG.ino`
 
 ## Appearance
 
@@ -31,7 +31,7 @@ Each 4" module ships with **loose pin headers**. **Solder the pin headers to the
 
 ## Quick Start (UNO R3)
 
-1. Open `codes/Uno_47SEG.ino` in Arduino IDE and set **`#define NUM_DIGITS`** (e.g. **1** = single digit, **2** = two modules cascaded)
+1. Open `codes/Uno_47SEG/Uno_47SEG.ino` in Arduino IDE and set **`#define NUM_DIGITS`** (e.g. **1** = single digit, **2** = two modules cascaded)
 2. Wire as in "Arduino Uno R3 Example" (DATAIN side to Arduino; **12 V** from an external supply)
 3. Select **Arduino Uno** and the correct port, then upload
 
@@ -66,7 +66,7 @@ Example pins (change in code if you rewire):
 
 > **New to shift registers or hexadecimal?** Read the [Key Concepts](#key-concepts) section below before diving into the code — it explains how cascading works, what `0x3F` means, and how `%` and `/` extract digits from a number.
 
-File: `codes/Uno_47SEG.ino`
+File: `codes/Uno_47SEG/Uno_47SEG.ino`
 
 ```cpp
 #define NUM_DIGITS 2   // 1 = single module, 2 = two modules cascaded, 3 = three, etc.

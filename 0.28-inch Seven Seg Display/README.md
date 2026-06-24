@@ -37,7 +37,7 @@ This folder provides:
 ## Quick Start (UNO R3)
 
 1. Install the **LedControl** library in Arduino IDE (**Sketch → Include Library → Manage Libraries…** → search `LedControl`).
-2. Open `codes/Uno_0288SEG.ino` and set **`DIN_PIN`**, **`CLK_PIN`**, **`CS_PIN`** to match your wiring.
+2. Open `codes/Uno_0288SEG/Uno_0288SEG.ino` and set **`DIN_PIN`**, **`CLK_PIN`**, **`CS_PIN`** to match your wiring.
 3. Connect **GND**, **VCC**, **DIN**, **CLK**, **CS** per the table above.
 4. Select **Arduino Uno** and the correct port, then upload.
 
@@ -89,7 +89,7 @@ Example Arduino connections (change in code if you rewire):
 
 > **New to libraries or driver ICs?** Read the [Key Concepts](#key-concepts) section below first — it explains what `#include` does, why `shutdown()` must be called, and how the MAX7219 controls 8 digits from 3 wires.
 
-File: `codes/Uno_0288SEG.ino`
+File: `codes/Uno_0288SEG/Uno_0288SEG.ino`
 
 Uses the **LedControl** library (**MAX7219**, **DIN / CLK / CS**).
 
@@ -224,7 +224,7 @@ void setup() {
 lc.setDigit(0, 1, 8, true);
 ```
 
-- **Variant switch:** set `#define VARIANT_CLOCK` in `codes/Uno_0288SEG.ino`.
+- **Variant switch:** set `#define VARIANT_CLOCK` in `codes/Uno_0288SEG/Uno_0288SEG.ino`.
   - Decimal-point version: set `VARIANT_CLOCK` to **0**.
   - Clock version: set `VARIANT_CLOCK` to **1**.
 

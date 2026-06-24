@@ -54,7 +54,7 @@ Kits may include either type; check the **digit module** silkscreen / bag label.
 ## Quick Start (UNO R3)
 
 1. Identify **`5161AS`** vs **`5161BS`** on the digit (see the **Digit type ↔ silkscreen** section above for the silkscreen table and wiring notes).
-2. Open `codes/Uno_056SEG.ino` in Arduino IDE and set **`#define COMMON_ANODE`** to **0** (`5161AS`) or **1** (`5161BS`) to match your digit and common-pin wiring.
+2. Open `codes/Uno_056SEG/Uno_056SEG.ino` in Arduino IDE and set **`#define COMMON_ANODE`** to **0** (`5161AS`) or **1** (`5161BS`) to match your digit and common-pin wiring.
 3. Wire SER/RCLK/SRCLK as described in “Arduino Uno R3 Example”; wire **common pins** per your digit type
 4. Select **Arduino Uno** and the correct port, then upload
 
@@ -91,7 +91,7 @@ Connect the remaining power pins to **5V** and **GND** according to the driver b
 
 > **New to shift registers?** Read the [Key Concepts](#key-concepts) section below first — it explains how the 74HC595 works, what each bit in the segment byte does, and why common-anode displays need inverted bytes.
 
-File: `codes/Uno_056SEG.ino`
+File: `codes/Uno_056SEG/Uno_056SEG.ino`
 
 ```cpp
 // 0.56" single-digit 7-segment LED + 74HC595 driver board

@@ -1,10 +1,28 @@
-# Function
+# What Is This?
 
-This module is a **32×8 pixel matrix LED display** driven by the **MAX7219** chip. It is built from **four 8×8 LED modules cascaded** in a row (the common "FC-16" 4-in-1 board), giving 256 individually controllable LEDs. It can show text, scrolling messages, numbers, and animations — perfect for name tags, clocks, and simple scrolling signs.
+This is a **32×8 LED matrix** — a grid of tiny lights, 32 across and 8 down (256 LEDs in total). From code you can switch each light on or off to spell words, scroll messages, or show numbers and small animations. Great for name badges, clocks, and mini scrolling signs.
 
-It is controlled over a 3-wire **SPI** interface, so you only need three signal pins on your microcontroller no matter how many 8×8 modules are chained together.
+The grid is really **four 8×8 squares joined end-to-end** (a popular board often sold as an "FC-16 4-in-1" module). A small chip on the back — the **MAX7219** — does the hard part of lighting the correct LEDs; your board just sends it simple instructions.
 
-These examples work on both an **ESP32-S3** and an **Arduino UNO R3** board. The Arduino sketches are identical on both boards; MicroPython is ESP32-S3 only (the UNO cannot run MicroPython).
+Your board talks to the MAX7219 over **SPI**, a common way for chips to exchange data using a few shared wires. In practice that means **only three signal wires** (plus power and ground), no matter how many 8×8 squares are chained together.
+
+These examples run on two beginner-friendly boards:
+
+- **Arduino UNO R3** — the classic starter board.
+- **ESP32-S3** — a faster board that also has Wi-Fi.
+
+The **Arduino code is identical on both boards.** The **MicroPython** examples are **ESP32-S3 only** (the UNO cannot run MicroPython).
+
+> New to a word here (LED, GND, library, …)? See the **Glossary** in the [main README](../README.md#glossary), plus the [New Words](#new-words-used-here) table at the bottom of this page.
+
+# What You Need
+
+- The **32×8 MAX7219 matrix** module (this product)
+- One board: an **Arduino UNO R3** *or* an **ESP32-S3**
+- A **USB cable** to connect that board to your computer
+- **5 jumper wires** (female-to-male works for most boards)
+- Free software on your computer — **Arduino IDE** (for the Arduino examples) or **Thonny** (for the MicroPython examples)
+- The pin header **soldered** onto the module — see the soldering note in the [main README](../README.md#hardware-assembly-soldering-required). Loose, un-soldered wires give flaky, hard-to-debug results.
 
 # Appearance
 
@@ -22,7 +40,7 @@ The board is a strip of four 8×8 dot-matrix LEDs. One short edge has a 5-pin **
 | **CS** (chip select) | Tells the chip "this message is for you". Connect to any GPIO (ESP32-S3 GPIO 10). |
 | **CLK** (clock) | SPI clock — keeps data in sync. Connect to the board's clock pin (ESP32-S3 GPIO 12). |
 
-> The output side of the board repeats these names (often labelled **DOUT** instead of DIN). Wire your microcontroller to the **input** side.
+> The output side of the module repeats these names (often labelled **DOUT** instead of DIN). Wire your board to the **input** side.
 
 # Features
 
@@ -72,3 +90,17 @@ If your text appears **rotated, mirrored, or scrambled**, the library's *hardwar
 
 - **Arduino (MD_Parola):** change `HARDWARE_TYPE` — try `FC16_HW`, `GENERIC_HW`, `PAROLA_HW`, or `ICSTATION_HW`.
 - **MicroPython:** the `max7219.py` library targets the FC-16 layout; if a row reads backwards, your modules are a different variant.
+
+# New Words Used Here
+
+| Word | Plain-English meaning |
+| :-- | :-- |
+| **Pixel** | One single LED in the grid — one dot of light. |
+| **Dot matrix** | A grid of pixels (here 32 × 8) used to draw text and shapes. |
+| **MAX7219** | The driver chip on the module that turns the LEDs on and off for you. |
+| **SPI** | A simple scheme chips use to talk to each other over a few shared wires. |
+| **Cascade / chain** | Joining modules end-to-end so one set of wires drives all of them. |
+| **GPIO** | "General-purpose input/output" — a numbered signal pin on your board. |
+| **Library** | Ready-made code you install once and reuse, instead of writing it yourself. |
+| **Sketch** | The name for an Arduino program (a `.ino` file). |
+| **Software SPI** | Letting you pick any pins for the data/clock wires (the code does the timing). |
